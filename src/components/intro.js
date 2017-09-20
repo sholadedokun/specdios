@@ -1,13 +1,33 @@
 import React, {Component} from 'react'
 import {Grid, Row, Col} from 'react-bootstrap';
-
+import Aboutus from './aboutus'
+import Contactus from './contactus'
+import Register from './register'
 export default class Intro extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            currentView:'About Us'
+        }
+    }
+    switchView(){
+        console.log(this.state.currentView)
+        switch (this.state.currentView){
+            case 'About Us':
+                return <Aboutus />
+            case 'Contact Us':
+                return <Contactus />
+            case 'Register':
+                return <Register />
+        }
+        return 'Hello';
+    }
     render(){
         return(
             <Grid className="infoSpace"  >
 
                 <Row>
-                    <Col style={{background:`url('../../images/bgoverlay.png') repeat`, padding:'10px 20px',  borderRadius: '5px'}} xs={3} sm={4} xs={9}>
+                    <Col style={{background:`url('../../images/bgoverlay.png') repeat`, padding:'10px 20px',  borderTopLeftRadius: '5px',  borderTopRightRadius: '5px'}} xs={3} sm={4} xs={9}>
                         <Col xs={12}  className="App-header">
                             <div className="companyName">
                                 <span className="logoHead">Spectra</span>
@@ -23,14 +43,27 @@ export default class Intro extends Component {
                                 <li>In a Moment</li>
                             </ul>
                         </span>
-                        <p >
-                            Behind every beautiful moment there is a beautiful story. At Spectra Studios we believe that every moment should be exclusive and special.<br/><br/>
-                            Our aim is to by-pass an existing saturated market and give our clients a new experience. What kind of experience are we talking about?
-                            We thrive on new challenges and think variety is the spice-of-life. <br/><br/>With a Content and Creative business background, we have adopted a new model and ways of meeting our clients tailored needs. This is by creating a hub of
-                            a multi- talented and disciplined team to give the ultimate experience. We are distinguished by nothing but the very best.
-                        </p>
-                        <button>Register for a Free Photoshoot</button>
-                        <button>Contact Us</button>
+                        {
+
+                            this.switchView()
+                        }
+                        {
+                            (this.state.currentView==='Contact Us' || this.state.currentView==='Register')?
+                            <button onClick={()=>this.setState({currentView:'About Us'})}>About Us</button>:''
+                        }
+                        {
+                            (this.state.currentView==='About Us' || this.state.currentView==='Register')?
+                            <button onClick={()=>this.setState({currentView:'Contact Us'})}>Contact Us</button>:''
+                        }
+                        {
+                            (this.state.currentView==='Contact Us' || this.state.currentView==='About Us')?
+                            <button onClick={()=>this.setState({currentView:'Register'})}>Register for a Free Photoshoot</button>:''
+                        }
+
+
+
+
+
                     </Col>
                 </Row>
             </Grid>
