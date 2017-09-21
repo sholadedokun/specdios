@@ -7,10 +7,11 @@ import {Grid, Row, Col} from 'react-bootstrap';
 class contactMe extends Component {
     constructor(props){
         super();
-        // this.onSubmit = this.onSubmit.bind(this)
+        this.state={
+            currentView:'text'
+        }
         this.renderInput = this.renderInput.bind(this)
         this.renderTextarea = this.renderTextarea.bind(this)
-        // this.alertMessage = this.alertMessage.bind(this)
     }
     renderInput(field){
         const {meta:{touched, error}} = field;
@@ -50,35 +51,48 @@ class contactMe extends Component {
         return(
             <Row>
                 <Col xs={12}>
-                    <h2>Register</h2>
-                    <p>
-                    {`LET'S CREATE A MEMORABLE EXPERIENCE FOR YOU`}<br /><br />
 
-                        {`We are offering free professional photoshoot. You are probably wondering what's the catch. None!! It is completely free.
+                    {
+                        this.state.currentView=='text'?
 
-                        We will be launching soon and want you to be a part of the journey. Your pictures will grace our instagram page.
+                        <p>
+                        <h2>Free Photoshoot</h2>
+                        {`LET'S CREATE A MEMORABLE EXPERIENCE FOR YOU`}<br /><br />
 
-                        As a thank you , you will get to take your pictures home and also a discount voucher for your next booking.`}<br/><br />{`
+                            {`We are offering free professional photoshoot. You are probably wondering what's the catch. None!! It is completely free.
 
-                        So bring along a friend, partner or family with you and be a part of this wonderful adventure with us.
+                            We will be launching soon and want you to be a part of the journey. Your pictures will grace our instagram page.
 
-                        WHAT ARE YOU WAITING FOR REGISTER NOW-  (This will be on the button for them to click.)`}<br/><br />`
+                            As a thank you , you will get to take your pictures home and also a discount voucher for your next booking.`}<br/><br />{`
 
-                        YOU HAVE A STORY , WE HAVE THE LENS TO TELL IT`<br/><br />`
+                            So bring along a friend, partner or family with you and be a part of this wonderful adventure with us.`} <br/>
 
-                        hurry as Limited slots may apply...`
-                    </p>
-                    <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
-                        <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Full Name" />
-                        <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
-                        <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Phone Number" />
-                        <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Number of People in session" />
-                        <Field component={this.renderTextarea} name="message" id="message" placeholder="Hubbys" rows="4" />
-                        <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
-                        <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
-                        <input type="submit" value="Send Message" />
-                    </form>
-                    <div>{alertMessage}</div>
+                            `WHAT ARE YOU WAITING FOR REGISTER NOW`<br/><br />
+                            <button onClick={()=> this.setState({currentView:'form'})}>Register</button>
+                            {`
+
+                            YOU HAVE A STORY , WE HAVE THE LENS TO TELL IT`}<br/><br />{`
+
+                            hurry as Limited slots may apply...`}
+                        </p>
+                        :
+                        <Col xs={12}>
+                            <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+                                <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Full Name" />
+                                <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
+                                <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Phone Number" />
+                                <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Number of People in session" />
+                                <Field component={this.renderTextarea} name="message" id="message" placeholder="Hubbys" rows="4" />
+                                <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
+                                <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
+                                <input type="submit" value="Send Message" />
+                            </form>
+                            <div>{alertMessage}</div>
+                        </Col>
+
+                    }
+
+
                 </Col>
             </Row>
         )

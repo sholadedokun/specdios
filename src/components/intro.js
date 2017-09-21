@@ -27,7 +27,7 @@ export default class Intro extends Component {
             <Grid className="infoSpace"  >
 
                 <Row>
-                    <Col style={{background:`url('../../images/bgoverlay.png') repeat`, padding:'10px 20px',  borderTopLeftRadius: '5px',  borderTopRightRadius: '5px'}} xs={3} sm={4} xs={9}>
+                    <Col style={{background:`url('../../images/bgoverlay.png') repeat`, padding:'10px 20px',  borderRadius: '5px'}} sm={4} xs={12}>
                         <Col xs={12}  className="App-header">
                             <div className="companyName">
                                 <span className="logoHead">Spectra</span>
@@ -49,15 +49,15 @@ export default class Intro extends Component {
                         }
                         {
                             (this.state.currentView==='Contact Us' || this.state.currentView==='Register')?
-                            <button onClick={()=>this.setState({currentView:'About Us'})}>About Us</button>:''
+                            <a onClick={()=>this.setState({currentView:'About Us'})}>About Us</a>:''
                         }
                         {
                             (this.state.currentView==='About Us' || this.state.currentView==='Register')?
-                            <button onClick={()=>this.setState({currentView:'Contact Us'})}>Contact Us</button>:''
+                            <a onClick={(e)=>this.setState({currentView:'Contact Us'})}>Contact Us</a>:''
                         }
                         {
                             (this.state.currentView==='Contact Us' || this.state.currentView==='About Us')?
-                            <button onClick={()=>this.setState({currentView:'Register'})}>Register for a Free Photoshoot</button>:''
+                            <a  onClick={()=>this.setState({currentView:'Register'})}>Get Free Photoshoot</a>:''
                         }
 
 

@@ -44,6 +44,21 @@ h1, h2, h3, h4, h5 {
 .infoSpace {
   margin-top: 40px; }
 
+a {
+  margin: 20px 0;
+  text-align: center;
+  display: block;
+  line-height: 8px;
+  cursor: pointer; }
+
+a::after {
+  content: "____";
+  display: block;
+  line-height: 0px; }
+
+a:hover {
+  text-decoration: none; }
+
 button {
   display: block;
   background: #eee;

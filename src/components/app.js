@@ -15,7 +15,7 @@ export default class App extends Component{
     constructor(props){
         super(props);
         this.state={
-            currentbg:3,
+            currentbg:0,
             imagePool:["bg1", "bg2","bg3","bg4"],
             animationLeaveDuration:1000,
             animationEnterDuration:900,
