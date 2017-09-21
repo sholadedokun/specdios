@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import { signoutUser} from '../actions/userActions';
-import { connect } from 'react-redux'
 import { Link,  } from 'react-router-dom';
 import {Grid, Col, Row, Nav} from 'react-bootstrap';
 import _ from 'lodash'
 
-class Header extends(Component){
+export default class Header extends(Component){
     constructor(props){
         super();
     }
@@ -46,17 +44,8 @@ class Header extends(Component){
         return(
             <Col xs={12}  className="App-header">
 
-                
+
             </Col>
         )
     }
 }
-//to connet to our this component's prop to our state
-function mapStateToProps(state){
-    return{
-        authenticated:state.user.authenticated
-    }
-}
-const mapDispatchToProps = { signoutUser}
-//wrapping our connect with the component
-export default connect(mapStateToProps, mapDispatchToProps)(Header)

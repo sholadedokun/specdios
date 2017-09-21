@@ -59,6 +59,9 @@ a::after {
 a:hover {
   text-decoration: none; }
 
+a:hover::after {
+  content: "_______"; }
+
 button {
   display: block;
   background: #eee;

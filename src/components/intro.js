@@ -11,7 +11,6 @@ export default class Intro extends Component {
         }
     }
     switchView(){
-        console.log(this.state.currentView)
         switch (this.state.currentView){
             case 'About Us':
                 return <Aboutus />
@@ -20,19 +19,17 @@ export default class Intro extends Component {
             case 'Register':
                 return <Register />
         }
-        return 'Hello';
+        return 'Hello World';
     }
     render(){
         return(
-            <Grid className="infoSpace"  >
-
+            <Grid className="infoSpace">
                 <Row>
                     <Col style={{background:`url('../../images/bgoverlay.png') repeat`, padding:'10px 20px',  borderRadius: '5px'}} sm={4} xs={12}>
                         <Col xs={12}  className="App-header">
                             <div className="companyName">
                                 <span className="logoHead">Spectra</span>
                                 <span className="logoSubHead">Studios</span>
-
                             </div>
                         </Col>
                         <span className='workSlide'>
@@ -43,10 +40,7 @@ export default class Intro extends Component {
                                 <li>In a Moment</li>
                             </ul>
                         </span>
-                        {
-
-                            this.switchView()
-                        }
+                        {this.switchView()}
                         {
                             (this.state.currentView==='Contact Us' || this.state.currentView==='Register')?
                             <a onClick={()=>this.setState({currentView:'About Us'})}>About Us</a>:''
@@ -59,11 +53,6 @@ export default class Intro extends Component {
                             (this.state.currentView==='Contact Us' || this.state.currentView==='About Us')?
                             <a  onClick={()=>this.setState({currentView:'Register'})}>Get Free Photoshoot</a>:''
                         }
-
-
-
-
-
                     </Col>
                 </Row>
             </Grid>

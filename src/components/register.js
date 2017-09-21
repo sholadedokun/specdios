@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap';
-// import { contactPost} from '../actions/workActions';
+import { sendEmail } from '../actions/messageAction';
 
 class contactMe extends Component {
     constructor(props){
@@ -35,11 +35,12 @@ class contactMe extends Component {
     }
 
     onSubmit(value){
-        // this.props.contactPost(value);
+        value.Subject= "Get free Photoshoot";
+        this.props.sendEmail(value, 'sendMail');
 
     }
     render(){
-        const { handleSubmit, emailNotification } =this.props
+        const { handleSubmit, emailNotification, sendEmail} =this.props
         let alertMessage=''
         if(emailNotification && emailNotification.message){
             alertMessage =  <div>Thanks for contacting me, your Message has been received.</div>
@@ -80,8 +81,8 @@ class contactMe extends Component {
                             <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
                                 <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Full Name" />
                                 <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
-                                <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Phone Number" />
-                                <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Number of People in session" />
+                                <Field component={this.renderInput} type="phoneNumber" name="phoneNumber" placeholder="Phone Number" />
+                                <Field component={this.renderInput} type="numberOfPeople" name="numberOfPeople"  placeholder="Number of People in session" />
                                 <Field component={this.renderTextarea} name="message" id="message" placeholder="Hubbys" rows="4" />
                                 <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
                                 <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
@@ -107,21 +108,33 @@ function validate(values){
     if(!values.email){
         errors.email = 'Please enter your email Address';
     }
+    if(!values.phoneNumber){
+        errors.phoneNumber = 'Please enter your Phone Number';
+    }
+    if(!values.numberOfPeople){
+        errors.numberOfPeople = 'Please enter Number of people in session';
+    }
+    if(!values.numberOfPeople){
+        errors.numberOfPeople = 'Please enter Number of people in session';
+    }
+    if(!values.aboutYourself){
+        errors.aboutYourself = 'Please tell us few things that makes you special';
+    }
     if(!values.message){
-        errors.message = 'Please enter your Message';
+        errors.message = 'Please Tell us some of your hobbies';
     }
     return errors;
 }
 
-// function mapStateToProps(state){
-//     return{
-//         emailNotification:state.work.CONTACT
-//     }
-// }
+function mapStateToProps(state){
+    return{
+        emailNotification:state.email.emailNotification
+    }
+}
 
 export default reduxForm({
     validate,
     form: 'contactMe'
 })(
-connect(null, null)(contactMe)
+connect(null, {sendEmail})(contactMe)
 );

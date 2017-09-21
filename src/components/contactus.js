@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap';
-// import { contactPost} from '../actions/workActions';
+import { sendEmail } from '../actions/messageAction';
 
 class contactMe extends Component {
     constructor(props){
@@ -34,7 +34,8 @@ class contactMe extends Component {
     }
 
     onSubmit(value){
-        // this.props.contactPost(value);
+        value.Subject= "Thanks for contacting Spectra Studios";
+        this.props.sendEmail(value, 'sendMail');
 
     }
     render(){
@@ -51,6 +52,7 @@ class contactMe extends Component {
             <Row>
                 <Col xs={12}>
                     <h2>Contact Us</h2>
+                    <span>We like to hear your thoughts and answer your questions<br/></span>
                     <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
                         <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Name" />
                         <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email" />
@@ -88,5 +90,5 @@ export default reduxForm({
     validate,
     form: 'contactMe'
 })(
-connect(null, null)(contactMe)
+connect(null, {sendEmail})(contactMe)
 );
