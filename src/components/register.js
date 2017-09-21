@@ -84,7 +84,7 @@ class contactMe extends Component {
                                 <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
                                 <Field component={this.renderInput} type="phoneNumber" name="phoneNumber" placeholder="Phone Number" />
                                 <Field component={this.renderInput} type="numberOfPeople" name="numberOfPeople"  placeholder="Number of People in session" />
-                                <Field component={this.renderTextarea} name="message" id="message" placeholder="Hubbys" rows="4" />
+                                <Field component={this.renderTextarea} name="hubbies" id="message" placeholder="hubbies" rows="4" />
                                 <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
                                 <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
                                 <input type="submit" value="Send Message" />
