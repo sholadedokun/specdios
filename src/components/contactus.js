@@ -35,6 +35,7 @@ class contactMe extends Component {
 
     onSubmit(value){
         value.Subject= "Thanks for contacting Spectra Studios";
+        value.emailType="contact";
         this.props.sendEmail(value, 'sendMail');
 
     }

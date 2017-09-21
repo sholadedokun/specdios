@@ -36,6 +36,7 @@ class contactMe extends Component {
 
     onSubmit(value){
         value.Subject= "Get free Photoshoot";
+        value.emailType="freePhotoshoot";
         this.props.sendEmail(value, 'sendMail');
 
     }
