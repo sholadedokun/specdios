@@ -44,6 +44,12 @@ h1, h2, h3, h4, h5 {
 .infoSpace {
   margin-top: 40px; }
 
+.notification {
+  color: #a49; }
+
+.textError {
+  color: #a33; }
+
 a {
   margin: 20px 0;
   text-align: center;

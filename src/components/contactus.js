@@ -32,10 +32,9 @@ class contactMe extends Component {
             </span>
         )
     }
-
     onSubmit(value){
-        value.Subject= "Thanks for contacting Spectra Studios";
-        value.emailType="contact";
+        value.subject= "Thanks for contacting Spectra Studios";
+        value.type="contact";
         this.props.sendEmail(value, 'sendMail');
 
     }
@@ -43,7 +42,7 @@ class contactMe extends Component {
         const { handleSubmit, emailNotification } =this.props
         let alertMessage=''
         if(emailNotification && emailNotification.message){
-            alertMessage =  <div>Thanks for contacting me, your Message has been received.</div>
+            alertMessage =  <div className="notification">Thanks for contacting us, your Message has been received.</div>
         }
         else if(emailNotification){
             alertMessage =
@@ -65,7 +64,6 @@ class contactMe extends Component {
             </Row>
         )
     }
-
 }
 function validate(values){
     const errors={}
@@ -81,15 +79,15 @@ function validate(values){
     return errors;
 }
 
-// function mapStateToProps(state){
-//     return{
-//         emailNotification:state.work.CONTACT
-//     }
-// }
+function mapStateToProps(state){
+    return{
+        emailNotification:state.email.emailNotification
+    }
+}
 
 export default reduxForm({
     validate,
     form: 'contactMe'
 })(
-connect(null, {sendEmail})(contactMe)
+connect(mapStateToProps, {sendEmail})(contactMe)
 );

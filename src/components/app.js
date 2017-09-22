@@ -3,7 +3,7 @@ import {BrowserRouter as Router,  Route } from 'react-router-dom';
 import Header from './header';
 import Intro from './intro'
 import {Grid, Row} from 'react-bootstrap';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 
 //We can now
 //wrap redux store with our application through the Provider Tag
@@ -41,7 +41,8 @@ export default class App extends Component{
         const {currentbg, imagePool}=this.state
         return(
             <Router>
-                <Grid fluid={true} className="App nop" style={{background:`url('../../images/${imagePool[currentbg]}.jpg') no-repeat center top`, position:'fixed', height:'100%', width:'100%'}}>
+                <Grid fluid={true} className="App nop" >
+                    <Grid fluid={true} style={{background:`url('../../images/${imagePool[currentbg]}.jpg') no-repeat center top`, position:'fixed', height:'100%', width:'100%'}}></Grid>
                     <Row>
                         <Header title="Specdios" />
                         <Route  exact path="/"  component={Intro} />
@@ -49,6 +50,5 @@ export default class App extends Component{
                 </Grid>
             </Router>
         )
-
     }
 }

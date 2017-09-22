@@ -3,6 +3,7 @@ import {Grid, Row, Col} from 'react-bootstrap';
 import Aboutus from './aboutus'
 import Contactus from './contactus'
 import Register from './register'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 export default class Intro extends Component {
     constructor(props){
         super(props)
@@ -40,19 +41,23 @@ export default class Intro extends Component {
                                 <li>In a Moment</li>
                             </ul>
                         </span>
-                        {this.switchView()}
-                        {
-                            (this.state.currentView==='Contact Us' || this.state.currentView==='Register')?
-                            <a onClick={()=>this.setState({currentView:'About Us'})}>About Us</a>:''
-                        }
-                        {
-                            (this.state.currentView==='About Us' || this.state.currentView==='Register')?
-                            <a onClick={(e)=>this.setState({currentView:'Contact Us'})}>Contact Us</a>:''
-                        }
-                        {
-                            (this.state.currentView==='Contact Us' || this.state.currentView==='About Us')?
-                            <a  onClick={()=>this.setState({currentView:'Register'})}>Get Free Photoshoot</a>:''
-                        }
+                        <ReactCSSTransitionGroup transitionName="aboutImages" transitionEnterTimeout={900} transitionLeaveTimeout={1000} className="route">
+                            {this.switchView()}
+                        </ReactCSSTransitionGroup>
+                        <ReactCSSTransitionGroup transitionName="aboutImages" transitionEnterTimeout={900} transitionLeaveTimeout={1000}>
+                            {
+                                (this.state.currentView==='Contact Us' || this.state.currentView==='Register')?
+                                <a onClick={()=>this.setState({currentView:'About Us'})}>About Us</a>:''
+                            }
+                            {
+                                (this.state.currentView==='About Us' || this.state.currentView==='Register')?
+                                <a onClick={(e)=>this.setState({currentView:'Contact Us'})}>Contact Us</a>:''
+                            }
+                            {
+                                (this.state.currentView==='Contact Us' || this.state.currentView==='About Us')?
+                                <a  onClick={()=>this.setState({currentView:'Register'})}>Get Free Photoshoot</a>:''
+                            }
+                        </ReactCSSTransitionGroup>
                     </Col>
                 </Row>
             </Grid>

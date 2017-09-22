@@ -35,16 +35,16 @@ class contactMe extends Component {
     }
 
     onSubmit(value){
-        value.Subject= "Get free Photoshoot";
-        value.emailType="freePhotoshoot";
+        value.subject= "Get free Photoshoot";
+        value.type="freePhotoshoot";
         this.props.sendEmail(value, 'sendMail');
 
     }
     render(){
         const { handleSubmit, emailNotification, sendEmail} =this.props
-        let alertMessage=''
+        let alertMessage='';
         if(emailNotification && emailNotification.message){
-            alertMessage =  <div>Thanks for contacting me, your Message has been received.</div>
+            alertMessage =  <div className="notification">We have received your data, we will get back to you shortly.</div>
         }
         else if(emailNotification){
             alertMessage =
@@ -56,7 +56,6 @@ class contactMe extends Component {
 
                     {
                         this.state.currentView=='text'?
-
                         <p>
                         <h2>Free Photoshoot</h2>
                         {`LET'S CREATE A MEMORABLE EXPERIENCE FOR YOU`}<br /><br />
@@ -84,7 +83,7 @@ class contactMe extends Component {
                                 <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
                                 <Field component={this.renderInput} type="phoneNumber" name="phoneNumber" placeholder="Phone Number" />
                                 <Field component={this.renderInput} type="numberOfPeople" name="numberOfPeople"  placeholder="Number of People in session" />
-                                <Field component={this.renderTextarea} name="hubbies" id="message" placeholder="hubbies" rows="4" />
+                                <Field component={this.renderTextarea} name="hobbies" id="message" placeholder="hobbies" rows="4" />
                                 <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
                                 <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
                                 <input type="submit" value="Send Message" />
@@ -112,8 +111,8 @@ function validate(values){
     if(!values.phoneNumber){
         errors.phoneNumber = 'Please enter your Phone Number';
     }
-    if(!values.numberOfPeople){
-        errors.numberOfPeople = 'Please enter Number of people in session';
+    if(!values.hobbies){
+        errors.hobbies = 'Please enter your hobbies';
     }
     if(!values.numberOfPeople){
         errors.numberOfPeople = 'Please enter Number of people in session';
@@ -137,5 +136,5 @@ export default reduxForm({
     validate,
     form: 'contactMe'
 })(
-connect(null, {sendEmail})(contactMe)
+connect(mapStateToProps, {sendEmail})(contactMe)
 );
