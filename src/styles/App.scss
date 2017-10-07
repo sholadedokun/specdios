@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,300italic,500,500italic');
 body{
     margin: 0;
     padding: 0;
@@ -8,7 +10,52 @@ body{
 .nop{
     padding: 0;
 }
-
+.contentVIew{
+    img{
+        text-align: center;
+        position: absolute;
+        top:10%;
+        left:45.5%;
+        cursor: pointer;
+    }
+    position: relative;
+     background:#191919;
+     padding:21.5vh 3em;
+     height:100vh;
+     color: #eee;
+     width:380px;
+}
+.menu{
+    position: absolute;
+    width:auto;
+    height:100vh;
+    background: #222;
+    padding:25vh 0 4em !important;
+    color:#eee !important;
+    z-index: 3;
+    box-shadow: 5px 0px 8 #000;
+    img{
+        margin-left:1em;
+    }
+    li{
+        padding:0.5em 1em;
+        display:block !important;
+        cursor: pointer;
+        margin:5px 0;
+    }
+    .active{
+        background:#fcf693;
+        color:#222;
+    }
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.menuList{
+    margin-top:4em;
+}
 
 .logoHead{
     font-family: 'Playfair Display', 'Exo';
@@ -24,7 +71,7 @@ h3, h4, h5{
     margin: 10px 0 20px;
 }
 h1, h2, h3, h4, h5, {
-    font-family: 'Quicksand';
+    font-family: 'Lato', 'Raleway';
     font-weight: bold;
 }
 
@@ -46,8 +93,36 @@ h1, h2, h3, h4, h5, {
     overflow: hidden;
     font-family: 'Exo';
 }
+button, input[type="submit"]{
+    padding: 1em;
+    color: #333;
+    background: linear-gradient(#fcf693, #ffd271);
+    border:none;
+    border-radius: 5px;
+    display: block;
+    outline: none;
+}
+.introText{
+    width:404px;
+    margin: 190px 200px;
+    button{
+        width: 300px;
+        margin-top:0.5em;
+        float:right;
+    }
+}
+.imageMover{
+     position:fixed;
+     height:100%;
+     width:100%;
+
+}
 .infoSpace{
-    margin-top: 40px;
+    position: absolute;
+    width:280px;
+    height: 100vh;
+    left:9vw;
+    margin-left: 3px;
 }
 .notification{
     color:#a49;
@@ -73,52 +148,57 @@ a:hover{
 a:hover::after{
     content: "_______";
 }
-button{
-    display: block;
-    background: #eee;
-    border-radius: 4px;
-    border: 2px solid #fff;
-    padding: 10px 15px;
-    margin: 10px auto;
-    font-weight: bold;
-    outline: none;
-    text-transform: uppercase;
 
-}
-button:hover{
-    border: 2px solid #eee;
-    background: #fff;
-}
-button:active{
-    background: #ddd;
-}
 input, textarea{
+    background:#eee;
+    color: #555;
+    border: 1px solid #ddd;
     display:block;
-    margin: 10px 0;
     width:100%;
-    padding:10px;
+    border-radius: 5px;
+    padding:0.8em 1em;
+    margin: 1em 0;
     outline: none;
 }
-@keyframes rotate{
-    from{
-      transform: rotate(0deg);
-      opacity: 0.25;}
-
-    to{
-      transform: rotate(360deg);
-      opacity: 0.01;}
+input:focus{
+    border:1px solid #ffd271;
+    background: #fff
 }
 
-@keyframes moveEnter{
+
+@keyframes promoEnter{
     from{
-      transform: translateX(200px);
-      opacity: 0.01;
-      z-index: 4;}
+      transform: translateX(320px);
+      opacity: 0;
+      z-index: 1;}
 
     to{
       transform: translateX(0px);
       opacity: 1;
-      z-index: 4;}
+      z-index: 0;}
+}
+
+@keyframes promoLeave{
+    from{
+      transform: translateX(0px);
+      opacity: 1;}
+
+    to{
+      transform: translateX(320px);
+      opacity:0;}
+}
+
+
+@keyframes moveEnter{
+    from{
+      transform: translateX(-400px);
+      opacity: 1;
+      z-index: 1;}
+
+    to{
+      transform: translateX(0px);
+      opacity: 1;
+      z-index: 1;}
 }
 
 @keyframes moveLeave{
@@ -127,8 +207,8 @@ input, textarea{
       opacity: 1;}
 
     to{
-      transform: translateX(-200px);
-      opacity: 0.01;}
+      transform: translateX(-400px);
+      opacity:1;}
 }
 
 .animate_xs_delay{
@@ -169,6 +249,19 @@ input, textarea{
 .transform_origin{
     transform-origin: 100% 100%}
 
+.promoAnim-enter{
+    opacity: 0;
+}
+.promoAnim-enter.promoAnim-enter-active{
+  animation: promoEnter 1230ms ease-in 0ms forwards}
+.promoAnim-leave{
+    opacity: 1;
+}
+.promoAnim-leave.promoAnim-leave-active{
+  animation: promoLeave 1250ms ease-in 0ms forwards}
+
+
+
 .aboutImages-enter{
   opacity: 0.01;
   z-index: 4}
@@ -192,7 +285,7 @@ input, textarea{
      .inner{
          display: flex;
          flex-direction: row;}
-    }
+
 
 ul{
     padding: 0;
@@ -210,113 +303,8 @@ ul{
         margin:0;
         padding: 0
     }
-}
-@-webkit-keyframes change{
-      0%, 12.66%, 100%{
-        transform: translate3d(0,0,0);
-    }
-      16.66%, 29.32%{
-        transform: translate3d(0,-25%,0);
-        font-size: 3em;
-    }
-      33.32%,45.98%{
-        transform: translate3d(0,-50%,0);
-        font-size: 3.3em;
-    }
-      49.98%,62.64%{
-        transform: translate3d(0,-75%,0);
-        font-size: 3em;
-    }
-      66.64%,79.3%{
-        transform: translate3d(0,-50%,0);
-        font-size: 3.3em;
-    }
-      83.3%,95.96%{
-        transform: translate3d(0,-25%,0);
-        font-size: 4em;
-    }
-}
+}}
 
-
-@-o-keyframes change {
-    0%, 12.66%, 100%{
-      transform: translate3d(0,0,0);
-  }
-    16.66%, 29.32%{
-      transform: translate3d(0,-25%,0);
-      font-size: 3em;
-  }
-    33.32%,45.98%{
-      transform: translate3d(0,-50%,0);
-      font-size: 3.3em;
-  }
-    49.98%,62.64%{
-      transform: translate3d(0,-75%,0);
-      font-size: 3em;
-  }
-    66.64%,79.3%{
-      transform: translate3d(0,-50%,0);
-      font-size: 3.3em;
-  }
-    83.3%,95.96%{
-      transform: translate3d(0,-25%,0);
-      font-size: 4em;
-  }
-}
-
-
-@-moz-keyframes change{
-    0%, 12.66%, 100%{
-      transform: translate3d(0,0,0);
-  }
-    16.66%, 29.32%{
-      transform: translate3d(0,-25%,0);
-      font-size: 3em;
-  }
-    33.32%,45.98%{
-      transform: translate3d(0,-50%,0);
-      font-size: 3.3em;
-  }
-    49.98%,62.64%{
-      transform: translate3d(0,-75%,0);
-      font-size: 3em;
-  }
-    66.64%,79.3%{
-      transform: translate3d(0,-50%,0);
-      font-size: 3.3em;
-  }
-    83.3%,95.96%{
-      transform: translate3d(0,-25%,0);
-      font-size: 4em;
-  }
-}
-
-@keyframes change{
-    0%, 12.66%, 100%{
-      transform: translate3d(0,0,0);
-      font-size: 1em;
-  }
-    16.66%, 29.32%{
-      transform: translate3d(0,-25%,0);
-      font-size: 0.9em;
-  }
-    33.32%,45.98%{
-      transform: translate3d(0,-50%,0);
-      font-size: 1.1em;
-  }
-    49.98%,62.64%{
-      transform: translate3d(0,-75%,0);
-      font-size: 1.2em;
-  }
-    66.64%,79.3%{
-      transform: translate3d(0,-50%,0);
-      font-size: 0.9em;
-  }
-    83.3%,95.96%{
-      transform: translate3d(0,-25%,0);
-      font-size: 1em;
-  }
-}
 #music{
     h2, h3, h4, h5{
         color: #fff

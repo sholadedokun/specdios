@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router,  Route } from 'react-router-dom';
-import Header from './header';
+import Menu from './menu';
 import Intro from './intro'
 import {Grid, Row} from 'react-bootstrap';
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 //We can now
 //wrap redux store with our application through the Provider Tag
@@ -15,6 +15,7 @@ export default class App extends Component{
         super(props);
         this.state={
             currentbg:0,
+            currentView:'',
             imagePool:["bg1", "bg2","bg3","bg4"],
             animationLeaveDuration:1000,
             animationEnterDuration:900,
@@ -31,22 +32,34 @@ export default class App extends Component{
         }
     }
     componentWillMount(){
-        this.interval=setInterval(()=>this.animateBackground(), 7500);
+         this.interval=setInterval(()=>this.animateBackground(), 7500);
 
     }
     componentWillUnMount(){
         clearInterval(this.interval);
     }
+    changeView(view){
+        console.log(view);
+        this.setState({currentView:view})
+    }
     render(){
-        const {currentbg, imagePool}=this.state
+        const {currentbg, imagePool, currentView}=this.state
         return(
             <Router>
                 <Grid fluid={true} className="App nop" >
-                    <Grid fluid={true} style={{background:`url('../../images/${imagePool[currentbg]}.jpg') no-repeat center top`, position:'fixed', height:'100%', width:'100%'}}></Grid>
-                    <Row>
-                        <Header title="Specdios" />
-                        <Route  exact path="/"  component={Intro} />
-                    </Row>
+                    <Grid fluid={true} style={{background:`url('../../images/${imagePool[currentbg]}.jpg') no-repeat center top`}} className="imageMover">
+                        <ReactCSSTransitionGroup transitionName="promoAnim">
+                            {(currentView==='')?
+                                <div className="introText">
+                                    <img src="images/promo.png" />
+                                    <button onClick={()=>this.setState({currentView:'register'})}>Book an Appointment</button>
+                                </div>:''
+                            }
+                        </ReactCSSTransitionGroup>
+                    </Grid>
+                    <Menu title="Specdios" setView={this.changeView.bind(this)} currentView={this.state.currentView}/>
+                    <Intro currentViewers={this.state.currentView} closeThePanle={()=>this.setState({currentView:''})}/>
+
                 </Grid>
             </Router>
         )

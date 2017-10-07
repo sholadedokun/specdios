@@ -49,19 +49,26 @@ class contactMe extends Component {
                 <div className='textError'><b>Error Sending Message, Please check your internet connection and try again.</b></div>
         }
         return(
-            <Row>
-                <Col xs={12}>
-                    <h2>Contact Us</h2>
-                    <span>We like to hear your thoughts and answer your questions<br/></span>
-                    <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
-                        <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Name" />
-                        <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email" />
-                        <Field component={this.renderTextarea} name="message" id="message" placeholder="Message" rows="4" />
-                        <input type="submit" value="Send Message" />
-                    </form>
-                    <div>{alertMessage}</div>
-                </Col>
-            </Row>
+            <Grid className="infoSpace">
+                <Row>
+                    <Col className="contentVIew">
+                        <img src="images/close.png" onClick={this.props.closePanel} />
+                        <Row>
+                            <Col xs={12}>
+                                <h2>Contact Us</h2>
+                                <span>We like to hear your thoughts and answer your questions<br/></span>
+                                <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+                                    <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Name" />
+                                    <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email" />
+                                    <Field component={this.renderTextarea} name="message" id="message" placeholder="Message" rows="4" />
+                                    <input type="submit" value="Send Message" />
+                                </form>
+                                <div>{alertMessage}</div>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </Grid>
         )
     }
 }

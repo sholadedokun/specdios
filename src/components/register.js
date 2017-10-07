@@ -51,51 +51,54 @@ class contactMe extends Component {
                 <div className='textError'><b>Error Sending Message, Please check your internet connection and try again.</b></div>
         }
         return(
-            <Row>
-                <Col xs={12}>
+            <Grid className="infoSpace">
+                <Row>
+                    <Col className="contentVIew">
+                        <Row>
+                            <img src="images/close.png" onClick={this.props.closePanel} />
+                            <Col xs={12}>
 
-                    {
-                        this.state.currentView=='text'?
-                        <p>
-                        <h2>Free Photoshoot</h2>
-                        {`LET'S CREATE A MEMORABLE EXPERIENCE FOR YOU`}<br /><br />
+                                {
+                                    this.state.currentView=='text'?
+                                    <p>
+                                    <h2>Free Photoshoot</h2>
+                                    {`LET'S CREATE A MEMORABLE EXPERIENCE FOR YOU`}<br /><br />
 
-                            {`We are offering free professional photoshoot. You are probably wondering what's the catch. None!! It is completely free.
+                                        {`We are offering free professional photoshoot. You are probably wondering what's the catch. None!! It is completely free.
 
-                            We will be launching soon and want you to be a part of the journey. Your pictures will grace our instagram page.
+                                        We will be launching soon and want you to be a part of the journey. Your pictures will grace our instagram page.
 
-                            As a thank you , you will get to take your pictures home and also a discount voucher for your next booking.`}<br/><br />{`
+                                        As a thank you , you will get to take your pictures home and also a discount voucher for your next booking.`}<br/><br />{`
 
-                            So bring along a friend, partner or family with you and be a part of this wonderful adventure with us.`} <br/>
+                                        So bring along a friend, partner or family with you and be a part of this wonderful adventure with us.`} <br/>
 
-                            `WHAT ARE YOU WAITING FOR REGISTER NOW`<br/><br />
-                            <button onClick={()=> this.setState({currentView:'form'})}>Register</button>
-                            {`
+                                        <br/><br />
+                                        <input type="submit" onClick={()=> this.setState({currentView:'form'})} value="Book Appointment"/>
+                                    </p>
+                                    :
+                                    <Col xs={12}>
+                                        <h2>Book appointment</h2>
+                                        <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+                                            <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Full Name" />
+                                            <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
+                                            <Field component={this.renderInput} type="phoneNumber" name="phoneNumber" placeholder="Phone Number" />
+                                            <Field component={this.renderInput} type="numberOfPeople" name="numberOfPeople"  placeholder="Number of People in session" />
+                                            <Field component={this.renderTextarea} name="hobbies" id="message" placeholder="hobbies" rows="4" />
+                                            <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
+                                            <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
+                                            <input type="submit" value="Send Message" />
+                                        </form>
+                                        <div>{alertMessage}</div>
+                                    </Col>
 
-                            YOU HAVE A STORY , WE HAVE THE LENS TO TELL IT`}<br/><br />{`
-
-                            hurry as Limited slots may apply...`}
-                        </p>
-                        :
-                        <Col xs={12}>
-                            <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
-                                <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Full Name" />
-                                <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
-                                <Field component={this.renderInput} type="phoneNumber" name="phoneNumber" placeholder="Phone Number" />
-                                <Field component={this.renderInput} type="numberOfPeople" name="numberOfPeople"  placeholder="Number of People in session" />
-                                <Field component={this.renderTextarea} name="hobbies" id="message" placeholder="hobbies" rows="4" />
-                                <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
-                                <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
-                                <input type="submit" value="Send Message" />
-                            </form>
-                            <div>{alertMessage}</div>
-                        </Col>
-
-                    }
+                                }
 
 
-                </Col>
-            </Row>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </Grid>
         )
     }
 
