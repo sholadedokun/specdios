@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,300italic,500,500italic');
+@import 'font-awesome.min.css';
 body{
     margin: 0;
     padding: 0;
@@ -26,26 +27,30 @@ body{
      width:380px;
 }
 .menu{
+    display: flex;
+    flex-direction: column;
     position: absolute;
     width:auto;
+    min-width: 120px;
     height:100vh;
     background: #222;
     padding:25vh 0 4em !important;
     color:#eee !important;
     z-index: 3;
-    box-shadow: 5px 0px 8 #000;
+    box-shadow: 2px 0px 15px 1px #151515;
+
     img{
-        margin-left:1em;
+        margin:0 auto;
     }
     li{
         padding:0.5em 1em;
         display:block !important;
         cursor: pointer;
         margin:5px 0;
+        text-align: center;
     }
     .active{
-        background:#fcf693;
-        color:#222;
+        color:#fcf693;
     }
 }
 ul{
@@ -103,12 +108,31 @@ button, input[type="submit"]{
     outline: none;
 }
 .introText{
-    width:404px;
+  position:relative;
+  background: #eee;
+  border: 2px solid #fff;
+  opacity: 0.9;
+  padding: 2.5em;
+  h3{
+    margin:0
+  }
+  .closeButton{
+    font-size:2em;
+    color:#555;
+    position: absolute;
+    top: 1em;
+    right:1.2em;
+    cursor:pointer;
+    // box-shadow: 0px 0px 1px 1 #777;
+  }
+  border-radius: 5px;
+    width: 450px;
     margin: 190px 200px;
     button{
-        width: 300px;
-        margin-top:0.5em;
-        float:right;
+      display: block;
+      width: auto;
+      margin-top:2.5em;
+      box-shadow: 0 0 5px 1px #aaa;
     }
 }
 .imageMover{
@@ -130,25 +154,6 @@ button, input[type="submit"]{
 .textError{
     color:#a33
 }
-a{
-    margin:20px 0;
-    text-align: center;
-    display: block;
-    line-height: 8px;
-    cursor: pointer;
-}
-a::after{
-    content: "____";
-    display: block;
-    line-height: 0px;
-}
-a:hover{
-    text-decoration: none;
-}
-a:hover::after{
-    content: "_______";
-}
-
 input, textarea{
     background:#eee;
     color: #555;
@@ -164,7 +169,73 @@ input:focus{
     border:1px solid #ffd271;
     background: #fff
 }
+.footerMenu{
+  background: linear-gradient(#3a3a3a,#303030);
+      width: 100vw;
+      box-shadow: 0 -1px 10px #222;
+      padding: 10px 20px;
+      font-size: .9em;
+      position: absolute;
+      bottom: 0;
+      z-index: 4;
+      color: #666;
+      text-align: left;
+      ul{
+        float: right;
+        position: relative;
+      }
+      li {
+        color: #999 !important;
+        float: left;
+        height: 20px;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+      li:hover{
+        color:#ddd;
+      }
+}
+.route{
+    position: relative;
+    z-index: 2;
+}
+a{
+  text-decoration: none;
+  margin: 0;
+  color:#888;
+}
+a:hover{
 
+  color:#ddd;
+}
+
+//animations keyframes
+@keyframes rotate{
+  0%{
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+  25%{
+        transform: rotate(90deg);
+        opacity: 1;
+    }
+  50%{
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+    51%{
+        transform: rotate(0deg);
+        opacity: 0;
+      }
+  75%{
+      transform: rotate(0deg);
+      opacity: 1;
+  }
+  100%{
+      transform: rotate(0deg);
+      opacity: 1;
+  }
+}
 
 @keyframes promoEnter{
     from{
@@ -177,7 +248,6 @@ input:focus{
       opacity: 1;
       z-index: 0;}
 }
-
 @keyframes promoLeave{
     from{
       transform: translateX(0px);
@@ -187,8 +257,6 @@ input:focus{
       transform: translateX(320px);
       opacity:0;}
 }
-
-
 @keyframes moveEnter{
     from{
       transform: translateX(-400px);
@@ -200,7 +268,6 @@ input:focus{
       opacity: 1;
       z-index: 1;}
 }
-
 @keyframes moveLeave{
     from{
       transform: translateX(0px);
@@ -209,6 +276,42 @@ input:focus{
     to{
       transform: translateX(-400px);
       opacity:1;}
+}
+
+@keyframes picEnter{
+    0%{
+        transform: translateY(-100vh) ;
+        z-index: 0;
+        opacity: 0;
+    }
+
+    80%{
+      transform: translateY(15vh);
+      opacity: 0.85;
+    }
+      100%{
+        transform: translateY(0vh);
+        opacity: 1;
+    }
+}
+@keyframes picLeave{
+    0%{
+      transform: translateY(0vh);
+      opacity: 1;
+      z-index: 0;
+    }
+    20%{
+        transform: translateY(15vh)
+    }
+    75%{
+        opacity: 0
+    }
+
+    100%{
+      transform: translateY(-100vh) ;
+      opacity:0;
+      z-index: 0;
+    }
 }
 
 .animate_xs_delay{
@@ -242,10 +345,10 @@ input:focus{
 .animate_xlg_duration{
     animation-duration: 3000ms !important}
 .rotateClockwise{
-    animation: 1s linear infinite rotate}
+    animation: rotate 4s linear infinite }
 
 .rotateAntiClockwise{
-    animation: 1s linear infinite rotate reverse}
+    animation:rotate 1s  linear infinite  reverse}
 .transform_origin{
     transform-origin: 100% 100%}
 
@@ -260,8 +363,6 @@ input:focus{
 .promoAnim-leave.promoAnim-leave-active{
   animation: promoLeave 1250ms ease-in 0ms forwards}
 
-
-
 .aboutImages-enter{
   opacity: 0.01;
   z-index: 4}
@@ -274,7 +375,20 @@ input:focus{
    z-index: 1}
 
 .aboutImages-leave.aboutImages-leave-active{
-  animation: moveLeave 1000ms ease-in 0ms forwards}
+  animation: moveLeave 1000ms ease-in 0ms forwards
+}
+
+.picAnim-enter{
+    opacity: 0;
+}
+.picAnim-enter.picAnim-enter-active{
+  animation: picEnter 530ms ease-in 200ms forwards}
+.picAnim-leave{
+    opacity: 1;
+}
+.picAnim-leave.picAnim-leave-active{
+  animation: picLeave 1250ms ease-in 0ms forwards}
+
 .aboutItem{
     margin: 0;
     h2, span{
@@ -284,44 +398,97 @@ input:focus{
      width: 100% !important;
      .inner{
          display: flex;
-         flex-direction: row;}
-
-
-ul{
-    padding: 0;
-    margin: 0;
-    display: inline-block;
-    text-align: left;
-    list-style: none;
-    -webkit-animation-name: change;
-    -webkit-animation-duration: 10s;
-    -webkit-animation-iteration-count: infinite;
-    animation-name: change;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    li{
-        margin:0;
-        padding: 0
-    }
-}}
-
-#music{
-    h2, h3, h4, h5{
-        color: #fff
-    }
-    p{
-        font-size: 0.9em;
-        margin-top: -2em
+         flex-direction: row;
+     }
+    ul{
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+        text-align: left;
+        list-style: none;
+        -webkit-animation-name: change;
+        -webkit-animation-duration: 10s;
+        -webkit-animation-iteration-count: infinite;
+        animation-name: change;
+        animation-duration: 10s;
+        animation-iteration-count: infinite;
+        li{
+            margin:0;
+            padding: 0
+        }
     }
 }
-#banner .inner{
-    text-align: left
+.imageMover{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    .imageContainer{
+        height: 100%;
+        position: relative;
+        top: 0;
+        .imgBack{
+            position: absolute;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 @media screen and (max-width: 450px){
-    #banner ul{
-        display: block}
+    .menu{
+        min-width:50px;
+        img{
+            display: none;
+        }
+    }
+    .footerMenu{
+        text-align: center;
+        span, ul {
+            float: none;
+            display:inline-block;
+            width: auto;
+            margin:0.5em auto;
+        }
+    }
     .TopBannerHeader{
         font-size: 4em !important}
     .TopBannerSubHeader{
         font-size: 3em !important}
 }
+#warning-message {
+     display: none;
+     text-align: center;
+     margin-top: 30vh;
+     img{
+         display: block;
+         margin: 1em auto;
+     }
+     .iconLg{
+         font-size: 4em !important;
+     }
+     .icon-stack{
+
+         margin: 1em 0 0.5em -1em;
+         min-height: 2em;
+         position: relative;
+         font-size: 2em !important;
+         span{
+             width:auto;
+             position: absolute;
+             display: inline-block;
+         }
+     }
+     .icon-stack span:nth-child(1){
+         font-size: 2.4em !important;
+         margin:-0.25em 0 0 -0.32em;
+     }
+ }
+
+   @media only screen and (orientation:portrait){
+       .App{ display:none; }
+       #warning-message { display:block; }
+   }
+   @media only screen and (orientation:landscape){
+       #warning-message { display:none; }
+   }

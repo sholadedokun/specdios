@@ -11,7 +11,7 @@ import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducers';
 
 import './styles/index.css';
-import './styles/App.css';
+import './styles/App.min.css';
 
 //applying reduxThunk as middleware enabled us to use dispatch from actions
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
