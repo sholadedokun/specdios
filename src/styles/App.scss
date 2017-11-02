@@ -13,23 +13,23 @@ body{
 }
 .contentVIew{
     img{
-        text-align: center;
-        position: absolute;
-        top:10%;
-        left:45.5%;
+        position: relative;
+
+        cursor: pointer;
+        margin: 1em 40%;
         cursor: pointer;
     }
     position: relative;
      background:#191919;
      padding:21.5vh 3em;
-     height:100vh;
+     height:auto;
      color: #eee;
-     width:380px;
+     width:35em;
 }
 .menu{
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     width:auto;
     min-width: 120px;
     height:100vh;
@@ -108,13 +108,20 @@ button, input[type="submit"]{
     outline: none;
 }
 .introText{
-  position:relative;
+  position:absolute;
   background: #eee;
   border: 2px solid #fff;
   opacity: 0.9;
   padding: 2.5em;
+  h2{
+      font-size: 1.3em;
+  }
   h3{
+    font-size: 1em;
     margin:0
+  }
+  h4{
+      font-size: 0.85em
   }
   .closeButton{
     font-size:2em;
@@ -126,7 +133,7 @@ button, input[type="submit"]{
     // box-shadow: 0px 0px 1px 1 #777;
   }
   border-radius: 5px;
-    width: 450px;
+    width: 350px;
     margin: 190px 200px;
     button{
       display: block;
@@ -143,10 +150,9 @@ button, input[type="submit"]{
 }
 .infoSpace{
     position: absolute;
-    width:280px;
+    width:auto;
     height: 100vh;
-    left:9vw;
-    margin-left: 3px;
+    left:8vw;
 }
 .notification{
     color:#a49;
@@ -175,7 +181,7 @@ input:focus{
       box-shadow: 0 -1px 10px #222;
       padding: 10px 20px;
       font-size: .9em;
-      position: absolute;
+      position: fixed;
       bottom: 0;
       z-index: 4;
       color: #666;
@@ -422,6 +428,7 @@ a:hover{
     position: fixed;
     height: 100vh;
     width: 100vw;
+    background: #333;
     overflow: hidden;
     .imageContainer{
         height: 100%;
@@ -434,27 +441,6 @@ a:hover{
             height: 100%;
         }
     }
-}
-@media screen and (max-width: 450px){
-    .menu{
-        min-width:50px;
-        img{
-            display: none;
-        }
-    }
-    .footerMenu{
-        text-align: center;
-        span, ul {
-            float: none;
-            display:inline-block;
-            width: auto;
-            margin:0.5em auto;
-        }
-    }
-    .TopBannerHeader{
-        font-size: 4em !important}
-    .TopBannerSubHeader{
-        font-size: 3em !important}
 }
 #warning-message {
      display: none;
@@ -484,6 +470,48 @@ a:hover{
          margin:-0.25em 0 0 -0.32em;
      }
  }
+ @media only screen and (max-width: 800px){
+     .introText{
+         margin-top: 4em;
+         margin-left: 9.5em;
+         button{
+             margin-top: 1em;
+         }
+     }
+ }
+@media screen and (max-width: 700px){
+    .menu{
+        width:50px;
+        min-width: 30px;
+        img{
+            display: none;
+        }
+        .menuList{
+            margin-top: 0;
+        }
+    }
+    .introText{
+        margin-top: 2em;
+        margin-left: 4.5em;
+        button{
+            margin-top: 1em;
+        }
+    }
+
+}
+@media screen and (min-height: 590px){
+    @media screen and (max-width: 1024px){
+        .imageContainer{
+            padding: 5.5em 0;
+        }
+    }
+    @media screen and (min-width: 1330px){
+        .imageContainer{
+            padding: 8em 0;
+        }
+    }
+}
+
 
    @media only screen and (orientation:portrait){
        .App{ display:none; }

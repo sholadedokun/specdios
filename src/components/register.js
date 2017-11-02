@@ -65,13 +65,9 @@ class contactMe extends Component {
                                     {`LET'S CREATE A MEMORABLE EXPERIENCE FOR YOU`}<br /><br />
 
                                         {`We are offering free professional photoshoot. You are probably wondering what's the catch. None!! It is completely free.
-
                                         We will be launching soon and want you to be a part of the journey. Your pictures will grace our instagram page.
-
                                         As a thank you , you will get to take your pictures home and also a discount voucher for your next booking.`}<br/><br />{`
-
                                         So bring along a friend, partner or family with you and be a part of this wonderful adventure with us.`} <br/>
-
                                         <br/><br />
                                         <input type="submit" onClick={()=> this.setState({currentView:'form'})} value="Book Appointment"/>
                                     </p>
@@ -90,10 +86,7 @@ class contactMe extends Component {
                                         </form>
                                         <div>{alertMessage}</div>
                                     </Col>
-
                                 }
-
-
                             </Col>
                         </Row>
                     </Col>

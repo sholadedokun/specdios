@@ -8,9 +8,10 @@ export default class Aboutus extends Component {
                 <Row>
 
                     <Col className="contentVIew">
-                        <h2>About Us</h2>
+                        <img src="images/close.png" onClick={this.props.closePanel} />
+
                         <p>
-                            <img src="images/close.png" onClick={this.props.closePanel} />
+                            <h2>About Us</h2>
                             Behind every beautiful moment there is a beautiful story. At Spectra Studios we believe that every moment should be exclusive and special.<br/><br/>
                             Our aim is to by-pass an existing saturated market and give our clients a new experience. What kind of experience are we talking about?
                             We thrive on new challenges and think variety is the spice-of-life. <br/><br/>With a Content and Creative business background, we have adopted a new model and ways of meeting our clients tailored needs. This is by creating a hub of
