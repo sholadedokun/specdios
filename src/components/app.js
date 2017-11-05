@@ -18,15 +18,15 @@ export default class App extends Component{
         this.state={
             currentbg:0,
             currentView:'',
-            imagePool:["bg1", "bg2","bg3","bg4"],
+            imagePool:["bg1", "bg2","bg3","bg4","bg5","bg6","bg7"],
             animationLeaveDuration:1000,
             animationEnterDuration:900,
-            totalSlide:4
+
         }
         this.animateBackground=this.animateBackground.bind(this);
     }
     animateBackground(){
-        if(this.state.currentbg===(this.state.totalSlide-1)){
+        if(this.state.currentbg===(this.state.imagePool.length-1)){
             this.setState({currentbg:0})
         }
         else{
