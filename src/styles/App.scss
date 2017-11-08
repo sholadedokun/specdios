@@ -445,13 +445,24 @@ a:hover{
 #warning-message {
      display: none;
      text-align: center;
-     margin-top: 30vh;
+     padding-top: 30vh;
+     height:100vh;
+     background: url("/images/mobileBackground.jpg") center no-repeat;
      img{
          display: block;
          margin: 1em auto;
      }
      .iconLg{
          font-size: 4em !important;
+     }
+     .warning-content{
+         background: #fff;
+         color:#333;
+         padding:20px;
+         opacity: 0.95;
+         border:1px solid #333;
+         border-left: none;
+         border-right: none;
      }
      .icon-stack{
 

@@ -92,15 +92,19 @@ export default class App extends Component{
 
                         <Footer />
                     </Row>
-                    <Col xs={12} id="warning-message">
-                        <img src="images/logo2.png" />
-                        This website is only viewable in landscape mode.<br />
-                        <div className="icon-stack rotateClockwise">
-                            <Icon icon="refresh" className="iconLg" />
-                            <Icon icon="mobile" />
-                        </div>
-                         <strong>Please flip your device.</strong>
-                    </Col>
+                    <Row>
+                        <Col xs={12} id="warning-message">
+                            <Row className="warning-content">
+                                <img src="images/logo2.png" />
+                                This website is only viewable in landscape mode.<br />
+                                <div className="icon-stack rotateClockwise">
+                                    <Icon icon="refresh" className="iconLg" />
+                                    <Icon icon="mobile" />
+                                </div>
+                                 <strong>Please flip your device.</strong>
+                            </Row>
+                        </Col>
+                    </Row>
                 </Grid>
 
             </Router>
