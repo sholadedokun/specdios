@@ -44,6 +44,12 @@ export default class App extends Component{
         console.log(view);
         this.setState({currentView:view})
     }
+    hideVideo(e){
+        let player = document.querySelector("#videoPlayer").pause()
+        let video = document.querySelector("#video")
+        video.style.display= "none"
+        console.log(video)
+    }
     render(){
         const {currentbg, imagePool, currentView}=this.state
         return(
@@ -55,8 +61,17 @@ export default class App extends Component{
                         <Menu title="Specdios" setView={this.changeView.bind(this)} currentView={this.state.currentView}/>
                         <Intro currentViewers={this.state.currentView} closeThePanle={()=>this.setState({currentView:''})}/>
                         <Grid fluid={true}>
+                            <div className="videoContainer" id="video">
+                                <video preload="auto" autoPlay loop id="videoPlayer">
+                                    <source type="video/mp4" src="../../videos/spectra.mp4"/>
+                                </video>
+                                <span className="skip" onClick={this.hideVideo.bind(this)}>
+                                    Skip Video <Icon icon="angle-double-right" />
+                                </span>
+                            </div>
                             <span className="imageMover">
                                 <div className="imageContainer">
+
                                     <ReactCSSTransitionGroup transitionName="picAnim">
                                         {
                                             imagePool.map((item, index)=>{
