@@ -3,15 +3,20 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap';
 import { sendEmail } from '../actions/messageAction';
+import { fetchSchedules } from '../actions/scheduleAction';
 
 class contactMe extends Component {
     constructor(props){
         super();
         this.state={
-            currentView:'text'
+            currentView:'text',
+            selectedDay:''
         }
         this.renderInput = this.renderInput.bind(this)
         this.renderTextarea = this.renderTextarea.bind(this)
+    }
+    componentWillMount(){
+        this.props.fetchSchedules();
     }
     renderInput(field){
         const {meta:{touched, error}} = field;
@@ -41,7 +46,8 @@ class contactMe extends Component {
 
     }
     render(){
-        const { handleSubmit, emailNotification, sendEmail} =this.props
+        const { handleSubmit, emailNotification, sendEmail, schedules} =this.props
+        console.log(schedules);
         let alertMessage='';
         if(emailNotification && emailNotification.message){
             alertMessage =  <div className="notification">We have received your data, we will get back to you shortly.</div>
@@ -82,6 +88,13 @@ class contactMe extends Component {
                                             <Field component={this.renderTextarea} name="hobbies" id="message" placeholder="hobbies" rows="4" />
                                             <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
                                             <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
+                                            <select onChange={(e)=>this.setState({selectedDay:e.target.value})} value={this.state.selectedDay}>
+                                                {
+                                                    schedules.map(item=>
+                                                        <option value={item}>{item}</option>
+                                                    )
+                                                }
+                                            </select>
                                             <input type="submit" value="Send Message" />
                                         </form>
                                         <div>{alertMessage}</div>
@@ -124,13 +137,13 @@ function validate(values){
 
 function mapStateToProps(state){
     return{
-        emailNotification:state.email.emailNotification
+        emailNotification:state.email.emailNotification,
+        schedules: state.schedule.allSchedules
     }
 }
-
 export default reduxForm({
     validate,
     form: 'contactMe'
 })(
-connect(mapStateToProps, {sendEmail})(contactMe)
+connect(mapStateToProps, {sendEmail, fetchSchedules})(contactMe)
 );

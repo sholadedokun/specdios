@@ -18,7 +18,7 @@ export default class App extends Component{
         this.state={
             currentbg:0,
             currentView:'',
-            imagePool:["bg1", "bg2","bg3","bg4","bg5","bg6","bg7"],
+            imagePool:["bg1", "bg2","bg5","bg6","bg7"],
             animationLeaveDuration:1000,
             animationEnterDuration:900,
 
