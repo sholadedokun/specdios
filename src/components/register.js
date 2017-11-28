@@ -10,7 +10,14 @@ class contactMe extends Component {
         super();
         this.state={
             currentView:'text',
-            selectedDay:''
+            selectedDay:'',
+            sessionPeriods:[
+                {sessionType: 'paid', from:'12:00pm', to: '01:00pm'},
+                {sessionType: 'free', from:'1:20pm', to: '02:20pm'},
+                {sessionType: 'paid', from:'02:20pm', to: '03:20pm'},
+                {sessionType: 'paid', from:'04:20pm', to: '06:20pm'},
+                {sessionType: 'free', from:'06:20pm', to: '07:20pm'},
+            ]
         }
         this.renderInput = this.renderInput.bind(this)
         this.renderTextarea = this.renderTextarea.bind(this)
@@ -47,7 +54,9 @@ class contactMe extends Component {
     }
     render(){
         const { handleSubmit, emailNotification, sendEmail, schedules} =this.props
-        console.log(schedules);
+        if(schedules){
+            console.log(schedules)
+        }
         let alertMessage='';
         if(emailNotification && emailNotification.message){
             alertMessage =  <div className="notification">We have received your data, we will get back to you shortly.</div>
@@ -88,7 +97,17 @@ class contactMe extends Component {
                                             <Field component={this.renderTextarea} name="hobbies" id="message" placeholder="hobbies" rows="4" />
                                             <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
                                             <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
+
                                             <select onChange={(e)=>this.setState({selectedDay:e.target.value})} value={this.state.selectedDay}>
+                                                <option>Select a session date</option>
+                                                {
+                                                    schedules.map(item=>
+                                                        <option value={item}>{item}</option>
+                                                    )
+                                                }
+                                            </select>
+                                            <select onChange={(e)=>this.setState({selectedDay:e.target.value})} value={this.state.selectedDay}>
+                                                <option>Select a session date</option>
                                                 {
                                                     schedules.map(item=>
                                                         <option value={item}>{item}</option>

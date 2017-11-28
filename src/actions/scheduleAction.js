@@ -20,7 +20,7 @@ export function fetchSchedules(contactForm, endpoint) {
                        payload:{
                            AvailableDates:['01-12-2017', '08-12-2017', '15-12-2017'],
                            bookedSlot:[
-                               {date:'01-12-2017', slot:'01:15PM'},
+                               {date:'01-12-2017', slot:'01:20PM'},
                                {date:'08-12-2017', slot:'01:30PM'},
                                {date:'08-12-2017', slot:'01:45PM'}
                            ]
