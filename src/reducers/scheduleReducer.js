@@ -11,7 +11,7 @@ export default function(state = {}, action) {
                 return (bookedItem.date == item)
             })
             //there are sessions already booked on this date
-            if(allBookedSlots.length < 2){
+            if(allBookedSlots.length < 19){
                 data.date=item
                 //reduce all available sessions (allAvail sessions - all booked sessions)
                 let availableSessions = schedule.sessionPeriods.reduce((sessPayload, sItem)=>{

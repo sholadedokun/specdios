@@ -107,6 +107,21 @@ button, input[type="submit"]{
     display: block;
     outline: none;
 }
+.selectInput{
+  display: inline-block;
+  background:#fff;
+  border-radius: 4px;
+  padding:10px;
+  width: 100%;
+  margin-bottom: 1em;
+  select{
+    border:0;
+    color:#000;
+    width:100%;
+    outline:none;
+    padding: 10px;
+  }
+}
 .introText{
   position:absolute;
   background: #eee;

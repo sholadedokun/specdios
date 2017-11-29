@@ -11,13 +11,7 @@ class contactMe extends Component {
         this.state={
             currentView:'text',
             selectedDay:'',
-            sessionPeriods:[
-                {sessionType: 'paid', from:'12:00pm', to: '01:00pm'},
-                {sessionType: 'free', from:'1:20pm', to: '02:20pm'},
-                {sessionType: 'paid', from:'02:20pm', to: '03:20pm'},
-                {sessionType: 'paid', from:'04:20pm', to: '06:20pm'},
-                {sessionType: 'free', from:'06:20pm', to: '07:20pm'},
-            ]
+            selectedSlot:''
         }
         this.renderInput = this.renderInput.bind(this)
         this.renderTextarea = this.renderTextarea.bind(this)
@@ -48,12 +42,18 @@ class contactMe extends Component {
 
     onSubmit(value){
         value.subject= "Get free Photoshoot";
-        value.type="freePhotoshoot";
+        console.log(this.state)
+        value.type=(this.props.schedules[this.state.selectedDay].AvailSession.sessionType=='free')?"free Photoshoot":"Paid Photoshoot";
+        value.date=this.props.schedules[this.state.selectedDay].date
+        value.slot=this.state.selectedSlot;
+
+
         this.props.sendEmail(value, 'sendMail');
 
     }
     render(){
-        const { handleSubmit, emailNotification, sendEmail, schedules} =this.props
+        const { handleSubmit, emailNotification, sendEmail, schedules, selectedslot} =this.props
+        const {selectedSlot, selectedDay } = this.state
         if(schedules){
             console.log(schedules)
         }
@@ -63,7 +63,7 @@ class contactMe extends Component {
         }
         else if(emailNotification){
             alertMessage =
-                <div className='textError'><b>Error Sending Message, Please check your internet connection and try again.</b></div>
+                <div className='textError'><b>{emailNotification}</b></div>
         }
         return(
             <Grid className="infoSpace">
@@ -97,24 +97,29 @@ class contactMe extends Component {
                                             <Field component={this.renderTextarea} name="hobbies" id="message" placeholder="hobbies" rows="4" />
                                             <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
                                             <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
-
-                                            <select onChange={(e)=>this.setState({selectedDay:e.target.value})} value={this.state.selectedDay}>
-                                                <option>Select a session date</option>
-                                                {
-                                                    schedules.map(item=>
-                                                        <option value={item}>{item}</option>
-                                                    )
-                                                }
-                                            </select>
-                                            <select onChange={(e)=>this.setState({selectedDay:e.target.value})} value={this.state.selectedDay}>
-                                                <option>Select a session date</option>
-                                                {
-                                                    schedules.map(item=>
-                                                        <option value={item}>{item}</option>
-                                                    )
-                                                }
-                                            </select>
-                                            <input type="submit" value="Send Message" />
+                                            <div className="selectInput">
+                                                <select onChange={(e)=>this.setState({selectedDay:e.target.value})} value={selectedDay}>
+                                                    <option>Select a session date</option>
+                                                    {
+                                                        (schedules)?
+                                                        schedules.map((item, index)=>
+                                                            <option key={index} value={index}>{item.date}</option>
+                                                        ):''
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div className="selectInput">
+                                                <select onChange={(e)=>this.setState({selectedSlot:e.target.value})} value={selectedSlot}>
+                                                    <option>Select a session time</option>
+                                                    {
+                                                        (schedules && selectedDay)?
+                                                        schedules[selectedDay].AvailSession.map((item, index)=>
+                                                            <option key={index} value={item.from}>{item.from} ({item.sessionType})</option>
+                                                        ):''
+                                                    }
+                                                </select>
+                                            </div>
+                                            <input type="submit" value="Book Session" />
                                         </form>
                                         <div>{alertMessage}</div>
                                     </Col>
@@ -156,8 +161,9 @@ function validate(values){
 
 function mapStateToProps(state){
     return{
-        emailNotification:state.email.emailNotification,
+        emailNotification:state.email.emailNotification || state.email.error,
         schedules: state.schedule.allSchedules
+
     }
 }
 export default reduxForm({
