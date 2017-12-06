@@ -42,11 +42,10 @@ class contactMe extends Component {
 
     onSubmit(value){
         value.subject= "Get free Photoshoot";
-        console.log(this.state)
-        value.type=(this.props.schedules[this.state.selectedDay].AvailSession.sessionType=='free')?"free Photoshoot":"Paid Photoshoot";
-        value.date=this.props.schedules[this.state.selectedDay].date
-        value.slot=this.state.selectedSlot;
-
+        const {selectedDay, selectedSlot}=this.state
+        value.type=(this.props.schedules[selectedDay].AvailSession[selectedSlot].sessionType=='free')?"free Photoshoot":"Paid Photoshoot";
+        value.date=this.props.schedules[selectedDay].date
+        value.slot=this.props.schedules[selectedDay].AvailSession[selectedSlot].from;
 
         this.props.sendEmail(value, 'sendMail');
 
@@ -114,10 +113,29 @@ class contactMe extends Component {
                                                     {
                                                         (schedules && selectedDay)?
                                                         schedules[selectedDay].AvailSession.map((item, index)=>
-                                                            <option key={index} value={item.from}>{item.from} ({item.sessionType})</option>
+                                                            <option key={index} value={index}>{item.from} ({item.sessionType})</option>
                                                         ):''
                                                     }
                                                 </select>
+                                            </div>
+                                            <div>
+                                            {
+                                                (schedules && selectedDay && selectedSlot && schedules[selectedDay].AvailSession[selectedSlot].sessionType=='paid')?
+                                                    <span>
+                                                        <strike>&pound;100</strike>
+                                                        <span> Now </span>
+                                                        <span>&pound;60 (40% discount)</span>
+                                                    </span>
+                                                    :
+                                                    (schedules && selectedDay && selectedSlot)?
+                                                    <span>
+                                                        <strike>&pound;100</strike>
+                                                        <span> Now </span>
+                                                        <span>&pound;0 (100% discount)</span>
+                                                    </span>
+                                                    :
+                                                    ''
+                                            }
                                             </div>
                                             <input type="submit" value="Book Session" />
                                         </form>
