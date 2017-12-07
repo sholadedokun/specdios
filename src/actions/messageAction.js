@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { SENDING, SEND_EMAILS, SEND_EMAILS_ERROR } from './actionTypes';
+import { SENDING, SEND_EMAILS, SEND_EMAILS_ERROR, FETCH_SCHEDULES, FETCH_SCHEDULES_ERROR } from './actionTypes';
 import _ from "lodash";
 const ROOT_URL = 'https://berhymes-back.herokuapp.com/appActions';
 //email configurations
@@ -27,12 +27,9 @@ export function sendEmail(contactForm, endpoint) {
                     resolve()
                 })
                 .catch((err) => {
-                    console.log(err.response)
                     let errData= err.response
                     let data='Error Sending Booking, Please Check your internet and try again.';
-
                     if(errData.status==400){
-                        console.log(errData.status)
                         data="Error Booking Session, we have a previous booking record using same "
                         if(errData.data.indexOf('email')>0){
                             data += "email address."
@@ -40,13 +37,33 @@ export function sendEmail(contactForm, endpoint) {
                         else{
                             data += "phone number."
                         }
-                        console.log(data)
                     }
-                    console.log(data)
                     dispatch({type: SEND_EMAILS_ERROR,
 
                         payload:data
                     });
+                });
+        })
+  }
+}
+export function fetchSchedules(contactForm, endpoint) {
+    return function(dispatch) {
+        return new Promise( (resolve, reject)=>{
+            axios.get(`${ROOT_URL}/schedule` )
+                .then(response => {
+                    dispatch({ type: FETCH_SCHEDULES,
+                        payload: {
+                            AvailableDates:['01-12-2017', '08-12-2017', '15-12-2017'],
+                            bookedSlot:response.data
+                        }
+                    });
+                    resolve()
+                })
+                .catch(() => {
+                    dispatch({type: FETCH_SCHEDULES_ERROR,
+                        payload:'Error fetching schedules, Please Check your internet and try again.'
+                    });
+                    reject()
                 });
         })
   }

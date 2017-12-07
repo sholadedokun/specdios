@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap';
 import { sendEmail } from '../actions/messageAction';
-import { fetchSchedules } from '../actions/scheduleAction';
+import { fetchSchedules } from '../actions/messageAction';
 
 class contactMe extends Component {
     constructor(props){
@@ -47,7 +47,9 @@ class contactMe extends Component {
         value.date=this.props.schedules[selectedDay].date
         value.slot=this.props.schedules[selectedDay].AvailSession[selectedSlot].from;
 
-        this.props.sendEmail(value, 'sendMail');
+        this.props.sendEmail(value, 'sendMail').then(data=>{
+            this.props.fetchSchedules();
+        });
 
     }
     render(){
