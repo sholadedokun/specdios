@@ -11,7 +11,9 @@ class contactMe extends Component {
         this.state={
             currentView:'text',
             selectedDay:'',
-            selectedSlot:''
+            selectedSlot:'',
+            showSuccess:false,
+            submitedSlotType:'',
         }
         this.renderInput = this.renderInput.bind(this)
         this.renderTextarea = this.renderTextarea.bind(this)
@@ -43,24 +45,34 @@ class contactMe extends Component {
     onSubmit(value){
         value.subject= "Get free Photoshoot";
         const {selectedDay, selectedSlot}=this.state
+        this.setState({submitedSlotType:this.props.schedules[selectedDay].AvailSession[selectedSlot].sessionType })
         value.type=(this.props.schedules[selectedDay].AvailSession[selectedSlot].sessionType=='free')?"free Photoshoot":"Paid Photoshoot";
         value.date=this.props.schedules[selectedDay].date
         value.slot=this.props.schedules[selectedDay].AvailSession[selectedSlot].from;
 
         this.props.sendEmail(value, 'sendMail').then(data=>{
             this.props.fetchSchedules();
+            this.setState({showSuccess:true});
         });
 
     }
     render(){
         const { handleSubmit, emailNotification, sendEmail, schedules, selectedslot} =this.props
-        const {selectedSlot, selectedDay } = this.state
-        if(schedules){
-            console.log(schedules)
-        }
+        const {selectedSlot, selectedDay, submitedSlotType, showSuccess } = this.state;
+        console.log(this.props, this.state);
         let alertMessage='';
         if(emailNotification && emailNotification.message){
-            alertMessage =  <div className="notification">We have received your data, we will get back to you shortly.</div>
+            alertMessage =  <div>
+                <h4>Thanks for registering for our photoshoot.</h4>
+                    {
+                        (submitedSlotType!='free')?
+                        <p>
+                            Please use this button to pay for your slot<br /> <br />
+                            <a className="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=68A6BJCUYG6NL&lc=GB&item_name=Spectra%20Headshots&item_number=001&amount=60%2e00&currency_code=GBP&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted" target="_blank" >Pay &pound;60 Now</a>
+                        </p>:
+                        <p> Our representative will contact you shortly. </p>
+                    }
+                </div>
         }
         else if(emailNotification){
             alertMessage =
@@ -90,58 +102,66 @@ class contactMe extends Component {
                                     :
                                     <Col xs={12}>
                                         <h2>Book appointment</h2>
-                                        <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
-                                            <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Full Name" />
-                                            <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
-                                            <Field component={this.renderInput} type="phoneNumber" name="phoneNumber" placeholder="Phone Number" />
-                                            <Field component={this.renderInput} type="numberOfPeople" name="numberOfPeople"  placeholder="Number of People in session" />
-                                            <Field component={this.renderTextarea} name="hobbies" id="message" placeholder="hobbies" rows="4" />
-                                            <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
-                                            <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
-                                            <div className="selectInput">
-                                                <select onChange={(e)=>this.setState({selectedDay:e.target.value})} value={selectedDay}>
-                                                    <option>Select a session date</option>
-                                                    {
-                                                        (schedules)?
-                                                        schedules.map((item, index)=>
-                                                            <option key={index} value={index}>{item.date}</option>
-                                                        ):''
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div className="selectInput">
-                                                <select onChange={(e)=>this.setState({selectedSlot:e.target.value})} value={selectedSlot}>
-                                                    <option>Select a session time</option>
-                                                    {
-                                                        (schedules && selectedDay)?
-                                                        schedules[selectedDay].AvailSession.map((item, index)=>
-                                                            <option key={index} value={index}>{item.from} ({item.sessionType})</option>
-                                                        ):''
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div>
-                                            {
-                                                (schedules && selectedDay && selectedSlot && schedules[selectedDay].AvailSession[selectedSlot].sessionType=='paid')?
-                                                    <span>
-                                                        <strike>&pound;100</strike>
-                                                        <span> Now </span>
-                                                        <span>&pound;60 (40% discount)</span>
-                                                    </span>
-                                                    :
-                                                    (schedules && selectedDay && selectedSlot)?
-                                                    <span>
-                                                        <strike>&pound;100</strike>
-                                                        <span> Now </span>
-                                                        <span>&pound;0 (100% discount)</span>
-                                                    </span>
-                                                    :
-                                                    ''
-                                            }
-                                            </div>
-                                            <input type="submit" value="Book Session" />
-                                        </form>
-                                        <div>{alertMessage}</div>
+                                        {
+                                            !showSuccess ?
+                                            <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+                                                <Field component={this.renderInput} type="text" name="name" id="name" placeholder="Full Name" />
+                                                <Field component={this.renderInput} type="email" name="email" id="email" placeholder="Email Address" />
+                                                <Field component={this.renderInput} type="phoneNumber" name="phoneNumber" placeholder="Phone Number" />
+                                                <Field component={this.renderInput} type="numberOfPeople" name="numberOfPeople"  placeholder="Number of People in session" />
+                                                <Field component={this.renderTextarea} name="hobbies" id="message" placeholder="hobbies" rows="4" />
+                                                <Field component={this.renderTextarea} name="aboutYourself" id="abtyrself" placeholder="About yourself" rows="4" />
+                                                <Field component={this.renderTextarea} name="comment" id="comment" placeholder="Comment" rows="4" />
+                                                <div className="selectInput">
+                                                    <select onChange={(e)=>this.setState({selectedDay:e.target.value})} value={selectedDay}>
+                                                        <option>Select a session date</option>
+                                                        {
+                                                            (schedules)?
+                                                            schedules.map((item, index)=>
+                                                                <option key={index} value={index}>{item.date}</option>
+                                                            ):''
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div className="selectInput">
+                                                    <select onChange={(e)=>this.setState({selectedSlot:e.target.value})} value={selectedSlot}>
+                                                        <option>Select a session time</option>
+                                                        {
+                                                            (schedules && selectedDay)?
+                                                            schedules[selectedDay].AvailSession.map((item, index)=>
+                                                                <option key={index} value={index}>{item.from} ({item.sessionType})</option>
+                                                            ):''
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                {
+                                                    (schedules && selectedDay && selectedSlot && schedules[selectedDay].AvailSession[selectedSlot].sessionType=='paid')?
+                                                        <span>
+                                                            <strike>&pound;150</strike>
+                                                            <span> Now </span>
+                                                            <span>&pound;60 (70% discount)</span>
+                                                        </span>
+                                                        :
+                                                        (schedules && selectedDay && selectedSlot)?
+                                                        <span>
+                                                            <strike>&pound;100</strike>
+                                                            <span> Now </span>
+                                                            <span>&pound;0 (100% discount)</span>
+                                                        </span>
+                                                        :
+                                                        ''
+                                                }
+                                                </div>
+                                                <input type="submit" value="Book Session" />
+                                                <div>{alertMessage}</div>
+                                            </form>
+
+                                            :
+                                            <div>{alertMessage}</div>
+                                        }
+
+
                                     </Col>
                                 }
                             </Col>

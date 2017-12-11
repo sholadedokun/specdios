@@ -53,7 +53,7 @@ export function fetchSchedules(contactForm, endpoint) {
                 .then(response => {
                     dispatch({ type: FETCH_SCHEDULES,
                         payload: {
-                            AvailableDates:['01-12-2017', '08-12-2017', '15-12-2017'],
+                            AvailableDates:['15-12-2017'],
                             bookedSlot:response.data
                         }
                     });
