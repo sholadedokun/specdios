@@ -170,22 +170,17 @@ a.button:hover{
       box-shadow: 0 0 5px 1px #aaa;
     }
 }
-.imageMover{
-     position:fixed;
-     height:100%;
-     width:100%;
-
-}
 .videoContainer{
-     position:absolute;
-     background: #eee;
+     position:relative;
+     background: #fff;
      z-index: 2;
-     height:100vh;
+     height:60vh;
      width:100vw;
-     text-align: center;
+     overflow: hidden;
+     background-attachment: fixed;
      video{
          width: 100%;
-         height: 100%;
+         // height: 100%;
      }
      .skip{
          font-weight: bold;
@@ -270,7 +265,24 @@ a:hover{
 
   color:#ddd;
 }
-
+@keyframes imageDetails{
+    0%{
+        opacity:0;
+    }
+    100%{
+        opacity:0.7;
+    }
+}
+@keyframes imageDetails_title{
+    0%{
+        opacity:0;
+        transform: translateY(1em);
+    }
+    100%{
+        opacity:1;
+        transform: translateY(0);
+    }
+}
 //animations keyframes
 @keyframes rotate{
   0%{
@@ -481,21 +493,56 @@ a:hover{
     }
 }
 .imageMover{
-    position: fixed;
-    height: 100vh;
+    position: relative;
+    height: auto;
     width: 100vw;
-    background: #333;
     overflow: hidden;
-    .imageContainer{
-        height: 100%;
+    padding-top:2em;
+    .imageDetails{
         position: relative;
-        top: 0;
+        padding-bottom: 0.3em;
+
+        span{
+            display:none;
+            .title{
+                color:#fff;
+                font-weight: bold;
+            }
+        }
+    }
+    .imageDetails:hover{
+        span{
+            cursor: pointer;
+            top:0;
+            padding: 2em;
+            position:absolute;
+            display:block;
+            width:100%;
+            height:100%;
+            background: #000;
+            animation: imageDetails 500ms ease-in 0ms forwards;
+            .title{
+                animation: imageDetails_title 250ms  ease-in 250ms forwards;
+            }
+        }
+    }
+    .allContainer{
+        padding:0.3em;
+    }
+    .imageContainer{
+        height: auto;
+        position: relative;
+        padding:0em;
+        padding-left:0.3em;
         .imgBack{
             position: absolute;
             display: inline-block;
             width: 100%;
             height: 100%;
         }
+    }
+    .imageContainer:first-child{
+        padding:0;
     }
 }
 #warning-message {

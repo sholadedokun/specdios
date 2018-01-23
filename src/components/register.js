@@ -138,9 +138,9 @@ class contactMe extends Component {
                                                 {
                                                     (schedules && selectedDay && selectedSlot && schedules[selectedDay].AvailSession[selectedSlot].sessionType=='paid')?
                                                         <span>
-                                                            <strike>&pound;150</strike>
+                                                            <strike>&pound;100</strike>
                                                             <span> Now </span>
-                                                            <span>&pound;60 (70% discount)</span>
+                                                            <span>&pound;60 (40% discount)</span>
                                                         </span>
                                                         :
                                                         (schedules && selectedDay && selectedSlot)?

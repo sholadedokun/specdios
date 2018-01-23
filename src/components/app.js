@@ -46,78 +46,80 @@ export default class App extends Component{
     }
     hideVideo(e){
         let player = document.querySelector("#videoPlayer").pause()
-        let video = document.querySelector("#video")
-        video.style.display= "none"
-        console.log(video)
+        // let video = document.querySelector("#video")
+        // video.style.display= "none"
+        // console.log(video)
     }
     render(){
         const {currentbg, imagePool, currentView}=this.state
         return(
             <Router>
-
                 <Grid  fluid={true} >
-
-                    <Row className="App nop" >
-                        <Menu title="Specdios" setView={this.changeView.bind(this)} currentView={this.state.currentView}/>
-                        <Intro currentViewers={this.state.currentView} closeThePanle={()=>this.setState({currentView:''})}/>
-                        <Grid fluid={true}>
-                            <div className="videoContainer" id="video">
-                                <video preload="auto" autoPlay loop id="videoPlayer">
+                    <Row xs="12">
+                        <Col xs="12" className="videoContainer" id="video">
+                            <Row>
+                                <video preload="auto" autoPlay loop  id="videoPlayer" width="100%">
                                     <source type="video/mp4" src="../../videos/spectra.mp4"/>
                                 </video>
                                 <span className="skip" onClick={this.hideVideo.bind(this)}>
                                     Skip Video <Icon icon="angle-double-right" />
                                 </span>
-                            </div>
-                            <span className="imageMover">
-                                <div className="imageContainer">
-
-                                    <ReactCSSTransitionGroup transitionName="picAnim">
-                                        {
-                                            imagePool.map((item, index)=>{
-                                                return(
-                                                    (index==currentbg)?
-                                                        <div key={index}
-                                                            className={`imgBack ${index==currentbg?'active':''}`}
-
-                                                        >
-                                                        <img src={`../../images/${item}.jpg`} width="100%" />
-                                                        </div>:''
-                                                )
-                                            })
-                                        }
-                                        </ReactCSSTransitionGroup>
-
-                                </div>
-                            </span>
-
-                                <ReactCSSTransitionGroup transitionName="promoAnim">
-                                    {(currentView==='')?
-                                        <div className="introText">
-                                            <h4>We are giving </h4><h2>FREE Outdoor Professional Photoshoot at</h2>
-                                            <h4>Famous London Landmarks</h4>
-                                            <p>Starting from November 15th</p>
-                                            <button onClick={()=>this.setState({currentView:'register'})}>Book an Appointment</button>
-                                            <span className="closeButton" onClick={()=>this.setState({currentView:'close'})}><Icon icon="times-circle" /></span>
-                                        </div>:''
-                                    }
-                                </ReactCSSTransitionGroup>
-                        </Grid>
-
-
-                        <Footer />
-                    </Row>
-                    <Row>
-                        <Col xs={12} id="warning-message">
-                            <Row className="warning-content">
-                                <img src="images/logo2.png" />
-                                This website is only viewable in landscape mode.<br />
-                                <div className="icon-stack rotateClockwise">
-                                    <Icon icon="refresh" className="iconLg" />
-                                    <Icon icon="mobile" />
-                                </div>
-                                 <strong>Please flip your device.</strong>
                             </Row>
+                        </Col>
+                        <Col xs="12" className="imageMover">
+                            <Row className="allContainer">
+                                <Col xs="12" sm="6" md="4" className="imageContainer">
+                                    {
+                                        imagePool.filter((item,index)=>(index+1)%3==1).map(item=>
+                                            <div className="imageDetails">
+                                                <img src={`../../images/${item}.jpg`} width="100%" />
+                                                <span>
+                                                    <p className="title">somefadein details</p>
+                                                </span>
+                                            </div>
+                                        )
+                                    }
+                                </Col>
+                                <Col xs="12" sm="6" md="4" className="imageContainer">
+                                    {
+                                        imagePool.filter((item,index)=>(index+1)%3==2).map(item=>
+                                            <div className="imageDetails">
+                                                <img src={`../../images/${item}.jpg`} width="100%" />
+                                                <span>
+                                                    <p className="title">somefadein details</p>
+                                                </span>
+                                            </div>
+                                        )
+                                    }
+                                </Col>
+                                <Col xs="12" sm="6" md="4" className="imageContainer">
+                                    {
+                                        imagePool.filter((item,index)=>(index+1)%3==0).map(item=>
+                                            <div className="imageDetails">
+                                                <img src={`../../images/${item}.jpg`} width="100%" />
+                                                <span>
+                                                    <p className="title">somefadein details</p>
+                                                </span>
+                                            </div>
+                                        )
+                                    }
+                                </Col>
+                            </Row>
+                                {/*<ReactCSSTransitionGroup transitionName="picAnim">
+                                    {
+                                        imagePool.map((item, index)=>{
+                                            return(
+                                                (index==currentbg)?
+                                                    <div key={index}
+                                                        className={`imgBack ${index==currentbg?'active':''}`}
+
+                                                    >
+                                                    <img src={`../../images/${item}.jpg`} width="100%" />
+                                                    </div>:''
+                                            )
+                                        })
+                                    }
+                                    </ReactCSSTransitionGroup>*/}
                         </Col>
                     </Row>
                 </Grid>
