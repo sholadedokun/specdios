@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { SENDING, SEND_EMAILS, SEND_EMAILS_ERROR, FETCH_SCHEDULES, FETCH_SCHEDULES_ERROR } from './actionTypes';
+import { SENDING, SEND_EMAILS, SEND_EMAILS_ERROR, FETCH_SCHEDULES, FETCH_SCHEDULES_ERROR, FETCH_IMAGES } from './actionTypes';
 import _ from "lodash";
 const ROOT_URL = 'https://berhymes-back.herokuapp.com/appActions';
 //email configurations
@@ -64,6 +64,25 @@ export function fetchSchedules(contactForm, endpoint) {
                         payload:'Error fetching schedules, Please Check your internet and try again.'
                     });
                     reject()
+                });
+        })
+  }
+}
+export function fetchImages() {
+    return function(dispatch) {
+        return new Promise( (resolve, reject)=>{
+            axios.get(`${ROOT_URL}/fetchImages` )
+                .then(response => {
+                    dispatch({ type: FETCH_IMAGES,
+                        payload: response.data
+                    });
+                    resolve()
+                })
+                .catch((error) => {
+                    dispatch({type: FETCH_SCHEDULES_ERROR,
+                        payload:'Error fetching images, Please Check your internet and try again.'
+                    });
+                    reject(error)
                 });
         })
   }
