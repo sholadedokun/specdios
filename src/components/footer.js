@@ -8,25 +8,23 @@ export default class Menu extends(Component){
     constructor(props){
         super();
     }
-    componentWillMount(){
 
-    }
-    componentWillReceiveProps(nextProps){
-
-    }
     render(){
-        const {setView, currentView} = this.props
         return(
-            <div className="footerMenu">
-                <span id="copy"> Copyright © 2017 Spectra Studios.</span>
-                <ul id="social">
-                  <li><a href="#"><Icon icon="facebook" /></a></li>
-                  <li><a href="#"><Icon icon="twitter" /></a></li>
-                  <li><a href="#"><Icon icon="instagram" /></a></li>
-                  <li><a href="#"><Icon icon="snapchat" /></a></li>
-                  <li><a href="#"><Icon icon="linkedin" /></a></li>
-                </ul>
-            </div>
+            <Grid fluid className="footerMenu">
+                <Row>
+                    <Grid>
+                        <span id="copy"> Copyright © 2017 Spectra Studios.</span>
+                        <ul id="social">
+                          <li><a href="#"><Icon icon="facebook" /></a></li>
+                          <li><a href="#"><Icon icon="twitter" /></a></li>
+                          <li><a href="#"><Icon icon="instagram" /></a></li>
+                          <li><a href="#"><Icon icon="snapchat" /></a></li>
+                          <li><a href="#"><Icon icon="linkedin" /></a></li>
+                        </ul>
+                    </Grid>
+                </Row>
+            </Grid>
         )
     }
 }
