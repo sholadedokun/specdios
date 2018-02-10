@@ -760,11 +760,17 @@ a:hover{
              margin-top: 1em;
          }
      }
+     .videoContainer{
+         height:42vh;
+     }
+     .moveFromVideo{
+         display: none;
+     }
  }
 @media screen and (max-width: 700px){
     .menu{
         width:50px;
-        min-width: 30px;
+        min-width: 35px;
         img{
             display: none;
         }
@@ -779,6 +785,10 @@ a:hover{
             margin-top: 1em;
         }
     }
+    .videoContainer{
+        height:30vh !important;
+    }
+
 
 }
 @media screen and (min-height: 590px){
@@ -791,14 +801,14 @@ a:hover{
         .imageContainer{
             padding: 8em 0;
         }
+        .videoContainer{
+            height:42vh;
+        }
     }
 }
 
-
-   @media only screen and (orientation:portrait){
-       .App{ display:none; }
-       #warning-message { display:block; }
-   }
    @media only screen and (orientation:landscape){
-       #warning-message { display:none; }
+       .videoContainer{
+           height:100vh !important;
+       }
    }
